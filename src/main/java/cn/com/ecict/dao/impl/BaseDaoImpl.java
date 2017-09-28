@@ -1,7 +1,7 @@
 package cn.com.ecict.dao.impl;
 
 import cn.com.ecict.dao.IBaseDao;
-import org.hibernate.Query;
+import org.hibernate.query.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;

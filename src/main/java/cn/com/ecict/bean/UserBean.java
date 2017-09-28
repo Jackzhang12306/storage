@@ -1,8 +1,6 @@
 package cn.com.ecict.bean;
 
 import java.util.Date;
-import java.io.Serializable;
-import java.util.Date;
 import javax.persistence.*;
 /**
  * create table users(
@@ -17,7 +15,7 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name="users")
-public class User {
+public class UserBean {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer  uid;
@@ -29,9 +27,9 @@ public class User {
     @Column(name = "lastlog")
     private Date     lastlog;
 
-    public User(){}
+    public UserBean(){}
 
-    public User(Integer uid, String username, String password, String email, Integer usertype, Date lastlog) {
+    public UserBean(Integer uid, String username, String password, String email, Integer usertype, Date lastlog) {
         this.uid = uid;
         this.username = username;
         this.password = password;
@@ -42,7 +40,7 @@ public class User {
 
     @Override
     public String toString() {
-        return "User{" +
+        return "UserBean{" +
                 "uid=" + uid +
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +

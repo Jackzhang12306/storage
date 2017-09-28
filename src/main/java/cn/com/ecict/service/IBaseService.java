@@ -5,7 +5,7 @@ import java.util.List;
 /**
  * Created by root on 17-9-26.
  */
-public interface BaseService <T>{
+public interface IBaseService <T>{
     //获取对象
     T get(Integer id);
     //保存对象
@@ -14,6 +14,5 @@ public interface BaseService <T>{
     void delete(T t);
     //更新对象
     void update(T t);
-    //获取一页
-    List<T> getPage(Integer page,Integer rows);
+
 }

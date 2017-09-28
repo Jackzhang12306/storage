@@ -1,7 +1,7 @@
 package cn.com.ecict.service.impl;
 
 import cn.com.ecict.dao.IBaseDao;
-import cn.com.ecict.service.BaseService;
+import cn.com.ecict.service.IBaseService;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -9,7 +9,7 @@ import java.util.List;
 /**
  * Created by root on 17-9-26.
  */
-public abstract class BaseServiceImpl<T> implements BaseService<T> {
+public abstract class BaseServiceImpl<T> implements IBaseService<T> {
 
     public abstract IBaseDao<T> getDao();
 

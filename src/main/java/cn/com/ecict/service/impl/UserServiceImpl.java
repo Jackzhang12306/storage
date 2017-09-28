@@ -1,9 +1,9 @@
 package cn.com.ecict.service.impl;
 
-import cn.com.ecict.bean.User;
+import cn.com.ecict.bean.UserBean;
 
 import cn.com.ecict.dao.IUserDao;
-import cn.com.ecict.service.UserService;
+import cn.com.ecict.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,7 +16,7 @@ import java.util.List;
  */
 @Service("userService")
 @Transactional(rollbackFor = Exception.class)
-public class UserServiceImpl  extends BaseServiceImpl<User> implements UserService {
+public class UserServiceImpl  extends BaseServiceImpl<UserBean> implements IUserService {
 
     @Resource(name="userDao")
     private IUserDao userDao;
@@ -26,22 +26,22 @@ public class UserServiceImpl  extends BaseServiceImpl<User> implements UserServi
         return userDao;
     }
     @Override
-    public User get(Integer id){
-        return getDao().get(User.class, id);
+    public UserBean get(Integer id){
+        return getDao().get(UserBean.class, id);
     }
     public boolean checkname(String username){
         return getDao().getByName(username);
     }
     //登录
     @Override
-    public User login(String username,String password){
+    public UserBean login(String username,String password){
         System.out.println(username+","+password);
         return getDao().get(username, password);
     }
     //注册
     @Transactional
     @Override
-    public boolean regist(User u){
+    public boolean regist(UserBean u){
         return getDao().add(u);
     }
 
@@ -50,9 +50,6 @@ public class UserServiceImpl  extends BaseServiceImpl<User> implements UserServi
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
-    @Override
-    public List<User> getPage(Integer page, Integer rows) {
-        return getDao().find(page,rows);
-    }
+
 
 }
