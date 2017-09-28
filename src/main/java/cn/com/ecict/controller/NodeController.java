@@ -30,6 +30,7 @@ public class NodeController {
     public List<NodeBean> getNodeList(){
         return nodeService.getNodeList();
     }
+
     @RequestMapping("/addNode.do")
     @ResponseBody
     public Map<String, String> addNode(String ip, String username,String password){
