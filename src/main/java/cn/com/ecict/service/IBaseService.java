@@ -15,4 +15,6 @@ public interface IBaseService <T>{
     //更新对象
     void update(T t);
 
+    //获取T列表
+    List<T> getList(Class<T> c);
 }

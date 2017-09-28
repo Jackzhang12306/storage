@@ -15,6 +15,7 @@ import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -71,4 +72,27 @@ public class UserController {
             return "forward:/index.jsp";
         }
     }
+
+    @RequestMapping("/getUserList.do")
+    @ResponseBody
+    public List<UserBean> getUserList(){
+        List<UserBean> list=userService.getUserList();
+        for(UserBean u:list){
+            System.out.println(u.getUid()+","+u.getUsername()+","+u.getEmail());
+        }
+        return list;
+    }
+
+    @RequestMapping("/checkUsername.do")
+    @ResponseBody
+    public String checkUsername(String username){
+        boolean flag=userService.checkUsername(username);
+        if(flag){
+            return "用户名已经存在！";
+        }else{
+            return "该用户名可以使用！";
+        }
+    }
+
+
 }

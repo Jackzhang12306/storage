@@ -7,8 +7,11 @@ import java.util.List;
 
 @Repository
 public interface IUserDao extends IBaseDao<UserBean>{
-    //用户名判定
-    boolean getByName(String username);
+    /**
+     * 用户名判定
+     */
+    boolean checkUsername(String username);
+
     //用户名和密码判定
     UserBean get(String username, String password);
     //添加新用户

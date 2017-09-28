@@ -10,4 +10,9 @@ import org.springframework.stereotype.Repository;
 @Repository("nodeDao")
 public class NodeDaoImpl extends BaseDaoImpl<NodeBean> implements INodeDao {
 
+    @Override
+    public boolean checkNodeIP(String ip) {
+        String hql="select count(1) from NodeBean where nodeIp=?";
+        return this.count(hql,ip) == 0 ? false : true;
+    }
 }

@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by root on 17-9-27.
@@ -27,8 +28,16 @@ public class NodeController {
     @RequestMapping("/getNodeList.do")
     @ResponseBody
     public List<NodeBean> getNodeList(){
-
-        //return nodeService.getNodeList();
+        return nodeService.getNodeList();
+    }
+    @RequestMapping("/addNode.do")
+    @ResponseBody
+    public Map<String, String> addNode(String ip, String username,String password){
+        if(nodeService.checkNodeIP(ip)){
+            System.out.println("IP地址已经存在，不能重复添加！");
+            return null;
+        }
         return null;
     }
+
 }

@@ -18,16 +18,26 @@ public abstract class BaseServiceImpl<T> implements IBaseService<T> {
     public void save(T entity) {
         getDao().save(entity);
     }
+
     @Transactional
     @Override
     public void update(T entity) {
         getDao().update(entity);
     }
+
     @Transactional
     @Override
     public void delete(T entity) {
         getDao().delete(entity);
     }
+
+    @Override
+    public List<T> getList(Class<T> c){
+        String hql="from "+c.getSimpleName();
+        System.out.println(hql);
+        return getDao().find(hql);
+    }
+
     public List<T> getByHQL(String hql, Object... params) {
         return getDao().find(hql, params);
     }

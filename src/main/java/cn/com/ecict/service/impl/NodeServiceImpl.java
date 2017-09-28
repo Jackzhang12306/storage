@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * Created by root on 17-9-27.
@@ -23,7 +24,18 @@ public class NodeServiceImpl extends BaseServiceImpl<NodeBean> implements INodeS
     }
 
     @Override
+    public boolean checkNodeIP(String ip) {
+        return nodeDao.checkNodeIP(ip);
+    }
+
+    @Override
     public NodeBean get(Integer id){
         return getDao().get(NodeBean.class, id);
     }
+
+    @Override
+    public List<NodeBean> getNodeList() {
+        return this.getList(NodeBean.class);
+    }
+
 }

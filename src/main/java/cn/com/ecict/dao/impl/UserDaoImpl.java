@@ -12,9 +12,9 @@ import java.util.List;
 @Repository("userDao")
 public class UserDaoImpl extends BaseDaoImpl<UserBean> implements IUserDao {
     @Override
-    public boolean getByName(String username) {
-        UserBean u=this.get("from UserBean where username=?",new Object[]{username});
-        return u != null;
+    public boolean checkUsername(String username) {
+        long count=this.count("select count(1) from UserBean where username=?",username);
+        return count==1;
     }
     @Override
     public UserBean get(String username,String password) {
@@ -22,7 +22,7 @@ public class UserDaoImpl extends BaseDaoImpl<UserBean> implements IUserDao {
     }
     @Override
     public boolean add(UserBean u){
-        if(!this.getByName(u.getUsername())){
+        if(!this.checkUsername(u.getUsername())){
             this.save(u);
             return true;
         }

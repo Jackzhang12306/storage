@@ -29,7 +29,9 @@ public class UserServiceImpl  extends BaseServiceImpl<UserBean> implements IUser
     public UserBean get(Integer id){
         return getDao().get(UserBean.class, id);
     }
-    public boolean checkname(String username){
+
+    @Override
+    public boolean checkUsername(String username){
         return getDao().getByName(username);
     }
     //登录
@@ -50,6 +52,10 @@ public class UserServiceImpl  extends BaseServiceImpl<UserBean> implements IUser
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
+    @Override
+    public List<UserBean> getUserList() {
+        return this.getList(UserBean.class);
+    }
 
 
 }

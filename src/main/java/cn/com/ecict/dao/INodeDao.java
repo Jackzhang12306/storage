@@ -8,5 +8,9 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface INodeDao extends IBaseDao<NodeBean>{
-
+    /**
+     * 判定数据库中是否存在该IP的节点
+     * @return
+     */
+    boolean checkNodeIP(String ip);
 }

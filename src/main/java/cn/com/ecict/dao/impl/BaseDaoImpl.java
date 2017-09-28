@@ -1,4 +1,7 @@
 package cn.com.ecict.dao.impl;
+/**
+ * Hibernate5 org.hibernate.Query过时
+ */
 
 import cn.com.ecict.dao.IBaseDao;
 import org.hibernate.query.Query;
@@ -123,7 +126,7 @@ public class BaseDaoImpl <T> implements IBaseDao<T> {
         return (Long) getSession().createQuery(hql).uniqueResult();
     }
     @Override
-    public Long count(String hql, Object[] param) {
+    public Long count(String hql, Object... param) {
         Query q = getSession().createQuery(hql);
         if (param != null && param.length > 0) {
             for (int i = 0; i < param.length; i++) {

@@ -2,13 +2,15 @@ package cn.com.ecict.service;
 
 import cn.com.ecict.bean.UserBean;
 
+import java.util.List;
+
 
 public interface IUserService extends IBaseService<UserBean>{
 
     /**
      * 用户名判定
      */
-    boolean checkname(String username);
+    boolean checkUsername(String username);
     /**
      * 用户登录
      */
@@ -21,4 +23,10 @@ public interface IUserService extends IBaseService<UserBean>{
      *用户退出
      */
     boolean exit();
+
+    /**
+     * 获取节点列表
+     * @return
+     */
+    List<UserBean> getUserList();
 }
