@@ -29,4 +29,17 @@ public interface IUserService extends IBaseService<UserBean>{
      * @return
      */
     List<UserBean> getUserList();
+
+    /**
+     * 获取用户status值
+     */
+    Integer getUserStatus(Integer userId);
+
+    /**
+     * 更新admin用户status值
+     * @return
+     */
+    boolean updateUserStatus(Integer userId,Integer status);
+
+
 }

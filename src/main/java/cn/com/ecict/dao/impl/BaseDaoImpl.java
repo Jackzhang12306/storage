@@ -104,7 +104,7 @@ public class BaseDaoImpl <T> implements IBaseDao<T> {
     }
 
     @Override
-    public T get(String hql, Object[] param) {
+    public T get(String hql, Object... param) {
         List<T> l = this.find(hql, param);
         if (l != null && l.size() > 0) {
             return l.get(0);
@@ -112,6 +112,29 @@ public class BaseDaoImpl <T> implements IBaseDao<T> {
             return null;
         }
     }
+
+    @Override
+    public Object getField(String hql, Object... param) {
+        Query q = getSession().createQuery(hql);
+        if (param != null && param.length > 0) {
+            for (int i = 0; i < param.length; i++) {
+                q.setParameter(i, param[i]);
+            }
+        }
+        return  q.uniqueResult();
+    }
+
+    @Override
+    public boolean updateField(String hql, Object... param) {
+        Query q = getSession().createQuery(hql);
+        if (param != null && param.length > 0) {
+            for (int i = 0; i < param.length; i++) {
+                q.setParameter(i, param[i]);
+            }
+        }
+        return q.executeUpdate()==0;
+    }
+
     @Override
     public T get(String hql, List<Object> param) {
         List<T> l = this.find(hql, param);

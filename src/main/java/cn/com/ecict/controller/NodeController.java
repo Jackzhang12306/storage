@@ -16,7 +16,7 @@ import java.util.Map;
  */
 @Controller
 @RequestMapping(value = "/node")
-public class NodeController {
+public class NodeController extends BaseController{
     @Resource(name="nodeService")
     private INodeService nodeService;
     private static final Logger logger = Logger.getLogger(NodeController.class);
@@ -38,6 +38,7 @@ public class NodeController {
             System.out.println("IP地址已经存在，不能重复添加！");
             return null;
         }
+
         return null;
     }
 

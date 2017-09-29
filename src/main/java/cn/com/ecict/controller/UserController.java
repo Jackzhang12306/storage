@@ -3,6 +3,7 @@ package cn.com.ecict.controller;
 import cn.com.ecict.bean.UserBean;
 import cn.com.ecict.dao.IUserDao;
 import cn.com.ecict.service.IUserService;
+import cn.com.ecict.util.Authority;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
@@ -56,6 +57,7 @@ public class UserController {
             loginMap.put(user.getUsername(),session.getId());
             application.setAttribute("loginMap", loginMap);
             session.setAttribute("username",user.getUsername());
+            session.setAttribute("userId",user.getUid());
             System.out.println("登录成功！");
             /**
              * sendRedirect对浏览器做出的响应是重新发出对另外一个URL的访问请求，
@@ -95,4 +97,30 @@ public class UserController {
     }
 
 
+    /**
+     *
+     * @return
+     */
+    @RequestMapping("/install.do")
+    @ResponseBody
+    @Authority
+    public Map<String, String> install(HttpSession session){
+        Integer userId=(Integer)session.getAttribute("username");
+        String username=session.getAttribute("userId").toString();
+        if(!"admin".equals(username)){
+            session.setAttribute("tip","非系统管理员登录！");
+            return null;
+        }
+        if(userService.getUserStatus(userId)!=null){
+            session.setAttribute("tip","已经安装！");
+            return null;
+        }
+        //初次安装
+        Map<String, String> map=new HashMap<>();
+        /**
+         * 未完成
+         */
+        userService.updateUserStatus(userId,-10);
+        return map;
+    }
 }

@@ -19,6 +19,23 @@ public interface IBaseDao <T>{
     T get(Class<T> c, long id);
     // 获得一个对象
     T get(String hql, Object[] param);
+
+    /**
+     * 读取一个字段值
+     * @param hql
+     * @param param
+     * @return
+     */
+    Object getField(String hql,Object... param);
+
+    /**
+     * 更新字段
+     * @param hql
+     * @param param
+     * @return
+     */
+    boolean updateField(String hql,Object... param);
+
     //对象总数
     Long count(String hql);
     // 查询

@@ -26,6 +26,7 @@ public class NodeBean {
     private String      password;
     private String      nodeRole;
     private String      nodeStatus;
+    private Integer     index;
 
     public Integer getNodeId() {
         return nodeId;
@@ -83,7 +84,13 @@ public class NodeBean {
         this.nodeStatus = nodeStatus;
     }
 
+    public Integer getIndex() {
+        return index;
+    }
 
+    public void setIndex(Integer index) {
+        this.index = index;
+    }
 
 
 }

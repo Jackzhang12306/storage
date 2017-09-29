@@ -32,7 +32,12 @@ public class UserServiceImpl  extends BaseServiceImpl<UserBean> implements IUser
 
     @Override
     public boolean checkUsername(String username){
-        return getDao().getByName(username);
+        String result=(String)getDao().getField("from UserBean where username=?",username);
+        if(result!=null){
+            return true;
+        }else{
+            return false;
+        }
     }
     //登录
     @Override
@@ -55,6 +60,16 @@ public class UserServiceImpl  extends BaseServiceImpl<UserBean> implements IUser
     @Override
     public List<UserBean> getUserList() {
         return this.getList(UserBean.class);
+    }
+
+    @Override
+    public Integer getUserStatus(Integer userId) {
+        return getDao().getUserStatus(userId);
+    }
+
+    @Override
+    public boolean updateUserStatus(Integer userId,Integer status) {
+        return getDao().updateStatus(userId,status);
     }
 
 

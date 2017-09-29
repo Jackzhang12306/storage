@@ -19,6 +19,8 @@ public class UserBean {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer  uid;
+    //该字段不更新
+    @Column(updatable=false)
     private String   username;
     private String   password;
     private String   email;
@@ -26,6 +28,7 @@ public class UserBean {
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "lastlog")
     private Date     lastlog;
+    private Integer  status;
 
     public UserBean(){}
 
@@ -96,5 +99,13 @@ public class UserBean {
 
     public void setLastlog(Date lastlog) {
         this.lastlog = lastlog;
+    }
+
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
     }
 }
