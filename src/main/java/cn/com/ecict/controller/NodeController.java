@@ -2,6 +2,8 @@ package cn.com.ecict.controller;
 
 import cn.com.ecict.bean.NodeBean;
 import cn.com.ecict.service.INodeService;
+import cn.com.ecict.util.FileUtil;
+import cn.com.ecict.util.LocalExecutor;
 import cn.com.ecict.util.StringUtil;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -43,6 +45,15 @@ public class NodeController extends BaseController{
             System.out.println("IP地址已经存在，不能重复添加！");
             return null;
         }
+        String cmd="";
+        String webServerIp = LocalExecutor.getLocalIP();
+        if(webServerIp.equals(ip)){
+            System.out.println("添加webServer，跳过源配置!");
+        }else{
+            cmd= FileUtil.getShellPath("");
+            LocalExecutor.exec("");
+        }
+
 
         return null;
     }

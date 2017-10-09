@@ -1,6 +1,7 @@
 package cn.com.ecict.util;
 
 import java.util.List;
+import java.util.Map;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JavaType;
@@ -115,5 +116,38 @@ public class JsonUtil {
             e.printStackTrace();
         }
         return null;
+    }
+
+    public static void main(String[] args){
+        String param="{\"datanode.port\":\"50010\",\"namenode.rpc-port\":\"8020\",\"dfs.replication\":\"4\",\"namenode.http-port\":\"50070\",\"datanode.http-port\":\"50075\",\"journalnode.http-port\":\"8480\",\"dfs.namenode.checkpoint.dir\":\"/hadoop/namesecondary\",\"dataDirs\":[{\"nodeId\":\"b7159b1b-42c8-4c90-91f1-183d145d8745\",\"value\":\"/hadoop/data\"},{\"nodeId\":\"a9b2650c-a8e6-4c02-b5bf-7fbfa5f92b70\",\"value\":\"/hadoop/data\"},{\"nodeId\":\"8f944a4d-df65-46d4-94a9-3bd2f9887138\",\"value\":\"/hadoop/data\"}]}";
+        Map<String,Object> map=JsonUtil.toObject(param, Map.class);
+        for(String key:map.keySet()){
+            System.out.println(key+"==>"+map.get(key));
+        }
+        /**
+             datanode.port==>50010
+             namenode.rpc-port==>8020
+             dfs.replication==>4
+             namenode.http-port==>50070
+             datanode.http-port==>50075
+             journalnode.http-port==>8480
+             dfs.namenode.checkpoint.dir==>/hadoop/namesecondary
+             dataDirs==>[{nodeId=b7159b1b-42c8-4c90-91f1-183d145d8745, value=/hadoop/data}, {nodeId=a9b2650c-a8e6-4c02-b5bf-7fbfa5f92b70, value=/hadoop/data}, {nodeId=8f944a4d-df65-46d4-94a9-3bd2f9887138, value=/hadoop/data}]
+         *
+         */
+        System.out.println("#############################");
+        List<Map<String,String>> dataDirs=(List<Map<String,String>>)map.get("dataDirs");
+        for(Map<String,String> m:dataDirs){
+            String nodeid=m.get("nodeId");
+            String dataDir=m.get("value");
+            System.out.println(nodeid+":"+dataDir);
+        }
+        /**
+         b7159b1b-42c8-4c90-91f1-183d145d8745:/hadoop/data
+         a9b2650c-a8e6-4c02-b5bf-7fbfa5f92b70:/hadoop/data
+         8f944a4d-df65-46d4-94a9-3bd2f9887138:/hadoop/data
+         *
+         */
+
     }
 }

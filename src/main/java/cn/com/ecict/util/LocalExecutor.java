@@ -82,9 +82,77 @@ public class LocalExecutor {
         return null;
     }
 
-    public static void main(String[] args){
+    public static Result execShell(String shellFile){
+        Result result;
+        String[] cmd = new String[] { "/bin/sh","-c" ,shellFile };
+        Runtime runtime = Runtime.getRuntime();
+        try {
+            Process process = runtime.exec(cmd);
+            BufferedReader stdoutReader = new BufferedReader(new InputStreamReader(process.getInputStream()));
+            BufferedReader stderrReader = new BufferedReader(new InputStreamReader(process.getErrorStream()));
+            String line;
+            StringBuffer output = new StringBuffer();
+            while ((line = stdoutReader.readLine()) != null) {
+                output.append(line).append("\n");
+            }
 
-        String ip=LocalExecutor.getLocalIP();
+            StringBuffer error= new StringBuffer();
+            while ((line = stderrReader.readLine()) != null) {
+                error.append(line).append("\n");
+            }
+            int exitVal = 0;
+            try {
+                exitVal = process.waitFor();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+                return null;
+            }
+            if(exitVal==0){
+                result=new Result(exitVal,output.toString());
+            }else{
+                result=new Result(exitVal,error.toString());
+            }
+            return result;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public static void main(String[] args){
+        /**
+         [root@hadron test]# cat test.sh
+         #!/bin/bash
+         ansible 192.168.1.161 -m file -a 'path=/tmp/abc state=directory mode=0755'
+         */
+        String cmd="sh /root/test/test.sh";
+        Result result=LocalExecutor.exec(cmd);
+        System.out.println("exitVal:\n"+result.getExitCode());
+        System.out.println("OUTPUT:\n"+result.getOutput());
+        /*result=LocalExecutor.exec("sh /root/storage/target/classes/test.sh abc");
+        System.out.println("exitVal:\n"+result.getExitCode());
+        System.out.println("OUTPUT:\n"+result.getOutput());*/
+
+        /**
+         *
+         exitVal:
+         0
+         OUTPUT:
+         192.168.1.161 | SUCCESS => {
+         "changed": true,
+         "gid": 0,
+         "group": "root",
+         "mode": "0755",
+         "owner": "root",
+         "path": "/tmp/abc",
+         "size": 6,
+         "state": "directory",
+         "uid": 0
+         }
+         *
+         */
+
+       /* String ip=LocalExecutor.getLocalIP();
         System.out.println(ip);
         boolean flag=LocalExecutor.isIpReachable("192.168.2.81");
         System.out.println(flag);
@@ -92,14 +160,14 @@ public class LocalExecutor {
         System.out.println("exitVal:\n"+result.getExitCode());
         System.out.println("OUTPUT:\n"+result.getOutput());
 
-        /**
+        *//**
          * 如果你想进行输入输出重定向，pipeline等操作，则必须通过程序来实现。不能直接在command参数中做。
          * 例如，下面的例子
          * Process process = runtime.exec("java -version > a.txt");
-         */
+         *//*
         result=LocalExecutor.exec("sh /root/data/genData.sh > /root/data/genData.txt");
         System.out.println("exitVal:\n"+result.getExitCode());
-        System.out.println("OUTPUT:\n"+result.getOutput());
+        System.out.println("OUTPUT:\n"+result.getOutput());*/
 
     }
 }

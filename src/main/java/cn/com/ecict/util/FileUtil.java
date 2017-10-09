@@ -21,6 +21,11 @@ public class FileUtil {
         return f.exists() && f.isFile();
     }
 
+    public static String getShellPath(String shellFile){
+        String path=FileUtil.class.getClassLoader().getResource(shellFile).getPath();
+        return path;
+    }
+
     /**
      * 删除单个文件
      * @param fileName
@@ -43,7 +48,7 @@ public class FileUtil {
     /**
      * 将1行数据写入空文件
      * @param fileName
-     * @param lines
+
      * @return
      */
     public static boolean writeNewFile(String fileName, String line) {
@@ -220,9 +225,16 @@ public class FileUtil {
     }
 
     public static void main(String[] args) {
-        boolean flag = isContain("/tmp/hosts", "192.168.1.81");
+        /*boolean flag = isContain("/tmp/hosts", "192.168.1.81");
         System.out.println(flag);
-        ;
+        */
+
+        String path=FileUtil.class.getClassLoader().getResource("test.sh").getPath();
+        System.out.println(path);
+        System.out.println(FileUtil.getShellPath("test.sh"));
+        Result result=LocalExecutor.execShell(path+" xyz");
+        System.out.println("exitVal:\n"+result.getExitCode());
+        System.out.println("OUTPUT:\n"+result.getOutput());
     }
 }
 
