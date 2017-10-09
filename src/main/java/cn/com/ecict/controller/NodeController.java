@@ -2,6 +2,7 @@ package cn.com.ecict.controller;
 
 import cn.com.ecict.bean.NodeBean;
 import cn.com.ecict.service.INodeService;
+import cn.com.ecict.util.StringUtil;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.apache.log4j.Logger;
@@ -34,6 +35,10 @@ public class NodeController extends BaseController{
     @RequestMapping("/addNode.do")
     @ResponseBody
     public Map<String, String> addNode(String ip, String username,String password){
+        if(StringUtil.isEmpty(ip)||StringUtil.isEmpty(username)||StringUtil.isEmpty(password)){
+            System.out.println("节点关键信息缺失！");
+            return null;
+        }
         if(nodeService.checkNodeIP(ip)){
             System.out.println("IP地址已经存在，不能重复添加！");
             return null;

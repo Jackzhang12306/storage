@@ -10,4 +10,9 @@ import org.springframework.stereotype.Repository;
 @Repository("diskDao")
 public class DiskDaoImpl extends BaseDaoImpl<DiskBean> implements IDiskDao {
 
+    @Override
+    public boolean add(DiskBean disk) {
+
+        return false;
+    }
 }

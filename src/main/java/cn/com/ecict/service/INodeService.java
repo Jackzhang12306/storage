@@ -20,4 +20,11 @@ public interface INodeService extends IBaseService<NodeBean> {
      * @return
      */
     List<NodeBean> getNodeList();
+
+    /**
+     * 通过NodeId获取nodeIp
+     * @param nodeId
+     * @return
+     */
+    String getNodeIp(String nodeId);
 }

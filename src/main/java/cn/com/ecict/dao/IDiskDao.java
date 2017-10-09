@@ -8,5 +8,10 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface IDiskDao extends IBaseDao<DiskBean>{
-
+    /**
+     * 添加磁盘
+     * @param disk
+     * @return
+     */
+    boolean add(DiskBean disk);
 }

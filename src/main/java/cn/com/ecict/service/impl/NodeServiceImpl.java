@@ -38,4 +38,9 @@ public class NodeServiceImpl extends BaseServiceImpl<NodeBean> implements INodeS
         return this.getList(NodeBean.class);
     }
 
+    @Override
+    public String getNodeIp(String nodeId) {
+        return nodeDao.getField("select nodeIp from NodeBean where nodeId=?",nodeId).toString();
+    }
+
 }
